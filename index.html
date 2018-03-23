@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>webchat</title>
+</head>
+
+<body>
+  <div id="message"></div>
+  <div id="input">
+    <textarea id="text" rows="8" cols="80"></textarea><br>
+    <button type="button" name="submit" onclick="sendMsg()">submit</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script>
+    var socket = io()
+    var msg_area = document.getElementById('message')
+    var txt_area = document.getElementById('text')
+    socket.on('news', function(data) {
+      console.log(data)
+      msg_area.innerHTML += data.name + ': ' + data.content + '<br>'
+    })
+
+    function sendMsg() {
+      if (txt_area) {
+        socket.emit('message', txt_area.value)
+        txt_area.value = ''
+        socket.emit('flush')
+      }
+    }
+  </script>
+</body>
+
+</html>
