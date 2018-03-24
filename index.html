@@ -7,29 +7,14 @@
 </head>
 
 <body>
-  <div id="message"></div>
-  <div id="input">
+  <div style="width:fit-content;margin:auto;">
+    <div id="message"></div>
     <textarea id="text" rows="8" cols="80"></textarea><br>
-    <button type="button" name="submit" onclick="sendMsg()">submit</button>
+    <button id="submit">submit</button>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-  <script>
-    var socket = io()
-    var msg_area = document.getElementById('message')
-    var txt_area = document.getElementById('text')
-    socket.on('news', function(data) {
-      console.log(data)
-      msg_area.innerHTML += data.name + ': ' + data.content + '<br>'
-    })
-
-    function sendMsg() {
-      if (txt_area) {
-        socket.emit('message', txt_area.value)
-        txt_area.value = ''
-        socket.emit('flush')
-      }
-    }
-  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
